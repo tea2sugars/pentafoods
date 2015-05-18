@@ -1,0 +1,1 @@
+window.CKEDITOR_BASEPATH = '/pentafoods/public/sites/all/libraries/ckeditor/';
