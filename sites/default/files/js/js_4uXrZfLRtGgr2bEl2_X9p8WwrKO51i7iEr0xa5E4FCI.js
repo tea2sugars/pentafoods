@@ -1,6 +1,116 @@
+
+/**
+ * Creates a namespace.
+ *
+ * @return
+ *   The created namespace object.
+ */
+function namespace () {
+  var a=arguments, o=null, i, j, d;
+  for (i=0; i<a.length; i=i+1) {
+    d=a[i].split(".");
+    o=window;
+    for (j=0; j<d.length; j=j+1) {
+      o[d[j]]=o[d[j]] || {};
+      o=o[d[j]];
+    }
+  }
+  return o;
+};
+;
+/*jslint browser: true */ /*global jQuery: true */
+
+/**
+ * jQuery Cookie plugin
+ *
+ * Copyright (c) 2010 Klaus Hartl (stilbuero.de)
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ *
+ */
+
+// TODO JsDoc
+
+/**
+ * Create a cookie with the given key and value and other optional parameters.
+ *
+ * @example $.cookie('the_cookie', 'the_value');
+ * @desc Set the value of a cookie.
+ * @example $.cookie('the_cookie', 'the_value', { expires: 7, path: '/', domain: 'jquery.com', secure: true });
+ * @desc Create a cookie with all available options.
+ * @example $.cookie('the_cookie', 'the_value');
+ * @desc Create a session cookie.
+ * @example $.cookie('the_cookie', null);
+ * @desc Delete a cookie by passing null as value. Keep in mind that you have to use the same path and domain
+ *       used when the cookie was set.
+ *
+ * @param String key The key of the cookie.
+ * @param String value The value of the cookie.
+ * @param Object options An object literal containing key/value pairs to provide optional cookie attributes.
+ * @option Number|Date expires Either an integer specifying the expiration date from now on in days or a Date object.
+ *                             If a negative value is specified (e.g. a date in the past), the cookie will be deleted.
+ *                             If set to null or omitted, the cookie will be a session cookie and will not be retained
+ *                             when the the browser exits.
+ * @option String path The value of the path atribute of the cookie (default: path of page that created the cookie).
+ * @option String domain The value of the domain attribute of the cookie (default: domain of page that created the cookie).
+ * @option Boolean secure If true, the secure attribute of the cookie will be set and the cookie transmission will
+ *                        require a secure protocol (like HTTPS).
+ * @type undefined
+ *
+ * @name $.cookie
+ * @cat Plugins/Cookie
+ * @author Klaus Hartl/klaus.hartl@stilbuero.de
+ */
+
+/**
+ * Get the value of a cookie with the given key.
+ *
+ * @example $.cookie('the_cookie');
+ * @desc Get the value of a cookie.
+ *
+ * @param String key The key of the cookie.
+ * @return The value of the cookie.
+ * @type String
+ *
+ * @name $.cookie
+ * @cat Plugins/Cookie
+ * @author Klaus Hartl/klaus.hartl@stilbuero.de
+ */
+jQuery.cookie = function (key, value, options) {
+
+    // key and value given, set cookie...
+    if (arguments.length > 1 && (value === null || typeof value !== "object")) {
+        options = jQuery.extend({}, options);
+
+        if (value === null) {
+            options.expires = -1;
+        }
+
+        if (typeof options.expires === 'number') {
+            var days = options.expires, t = options.expires = new Date();
+            t.setDate(t.getDate() + days);
+        }
+
+        return (document.cookie = [
+            encodeURIComponent(key), '=',
+            options.raw ? String(value) : encodeURIComponent(String(value)),
+            options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+            options.path ? '; path=' + options.path : '',
+            options.domain ? '; domain=' + options.domain : '',
+            options.secure ? '; secure' : ''
+        ].join(''));
+    }
+
+    // key and possibly options given, get cookie...
+    options = value || {};
+    var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
+    return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
+};
+;
 /*
-    json2.js
-    2015-05-03
+    http://www.JSON.org/json2.js
+    2009-09-29
 
     Public Domain.
 
@@ -17,9 +127,7 @@
 
 
     This file creates a global JSON object containing two methods: stringify
-    and parse. This file is provides the ES5 JSON capability to ES3 systems.
-    If a project might run on IE8 or earlier, then this file should be included.
-    This file does nothing on ES5 systems.
+    and parse.
 
         JSON.stringify(value, replacer, space)
             value       any JavaScript value, usually an object or array.
@@ -50,9 +158,7 @@
                 Date.prototype.toJSON = function (key) {
                     function f(n) {
                         // Format integers to have at least two digits.
-                        return n < 10 
-                            ? '0' + n 
-                            : n;
+                        return n < 10 ? '0' + n : n;
                     }
 
                     return this.getUTCFullYear()   + '-' +
@@ -98,9 +204,8 @@
             // text is '[\n\t"e",\n\t{\n\t\t"pluribus": "unum"\n\t}\n]'
 
             text = JSON.stringify([new Date()], function (key, value) {
-                return this[key] instanceof Date 
-                    ? 'Date(' + this[key] + ')' 
-                    : value;
+                return this[key] instanceof Date ?
+                    'Date(' + this[key] + ')' : value;
             });
             // text is '["Date(---current time---)"]'
 
@@ -151,12 +256,10 @@
     redistribute.
 */
 
-/*jslint 
-    eval, for, this 
-*/
+/*jslint evil: true, strict: false */
 
-/*property
-    JSON, apply, call, charCodeAt, getUTCDate, getUTCFullYear, getUTCHours,
+/*members "", "\b", "\t", "\n", "\f", "\r", "\"", JSON, "\\", apply,
+    call, charCodeAt, getUTCDate, getUTCFullYear, getUTCHours,
     getUTCMinutes, getUTCMonth, getUTCSeconds, hasOwnProperty, join,
     lastIndex, length, parse, prototype, push, replace, slice, stringify,
     test, toJSON, toString, valueOf
@@ -166,53 +269,50 @@
 // Create a JSON object only if one does not already exist. We create the
 // methods in a closure to avoid creating global variables.
 
-if (typeof JSON !== 'object') {
-    JSON = {};
+if (!this.JSON) {
+    this.JSON = {};
 }
 
 (function () {
-    'use strict';
-    
-    var rx_one = /^[\],:{}\s]*$/,
-        rx_two = /\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,
-        rx_three = /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
-        rx_four = /(?:^|:|,)(?:\s*\[)+/g,
-        rx_escapable = /[\\\"\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
-        rx_dangerous = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
 
     function f(n) {
         // Format integers to have at least two digits.
-        return n < 10 
-            ? '0' + n 
-            : n;
-    }
-    
-    function this_value() {
-        return this.valueOf();
+        return n < 10 ? '0' + n : n;
     }
 
     if (typeof Date.prototype.toJSON !== 'function') {
 
-        Date.prototype.toJSON = function () {
+        Date.prototype.toJSON = function (key) {
 
-            return isFinite(this.valueOf())
-                ? this.getUTCFullYear() + '-' +
-                        f(this.getUTCMonth() + 1) + '-' +
-                        f(this.getUTCDate()) + 'T' +
-                        f(this.getUTCHours()) + ':' +
-                        f(this.getUTCMinutes()) + ':' +
-                        f(this.getUTCSeconds()) + 'Z'
-                : null;
+            return isFinite(this.valueOf()) ?
+                   this.getUTCFullYear()   + '-' +
+                 f(this.getUTCMonth() + 1) + '-' +
+                 f(this.getUTCDate())      + 'T' +
+                 f(this.getUTCHours())     + ':' +
+                 f(this.getUTCMinutes())   + ':' +
+                 f(this.getUTCSeconds())   + 'Z' : null;
         };
 
-        Boolean.prototype.toJSON = this_value;
-        Number.prototype.toJSON = this_value;
-        String.prototype.toJSON = this_value;
+        String.prototype.toJSON =
+        Number.prototype.toJSON =
+        Boolean.prototype.toJSON = function (key) {
+            return this.valueOf();
+        };
     }
 
-    var gap,
+    var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
+        escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
+        gap,
         indent,
-        meta,
+        meta = {    // table of character substitutions
+            '\b': '\\b',
+            '\t': '\\t',
+            '\n': '\\n',
+            '\f': '\\f',
+            '\r': '\\r',
+            '"' : '\\"',
+            '\\': '\\\\'
+        },
         rep;
 
 
@@ -223,15 +323,14 @@ if (typeof JSON !== 'object') {
 // Otherwise we must also replace the offending characters with safe escape
 // sequences.
 
-        rx_escapable.lastIndex = 0;
-        return rx_escapable.test(string) 
-            ? '"' + string.replace(rx_escapable, function (a) {
+        escapable.lastIndex = 0;
+        return escapable.test(string) ?
+            '"' + string.replace(escapable, function (a) {
                 var c = meta[a];
-                return typeof c === 'string'
-                    ? c
-                    : '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
-            }) + '"' 
-            : '"' + string + '"';
+                return typeof c === 'string' ? c :
+                    '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
+            }) + '"' :
+            '"' + string + '"';
     }
 
 
@@ -271,9 +370,7 @@ if (typeof JSON !== 'object') {
 
 // JSON numbers must be finite. Encode non-finite numbers as null.
 
-            return isFinite(value) 
-                ? String(value) 
-                : 'null';
+            return isFinite(value) ? String(value) : 'null';
 
         case 'boolean':
         case 'null':
@@ -316,11 +413,11 @@ if (typeof JSON !== 'object') {
 // Join all of the elements together, separated with commas, and wrap them in
 // brackets.
 
-                v = partial.length === 0
-                    ? '[]'
-                    : gap
-                        ? '[\n' + gap + partial.join(',\n' + gap) + '\n' + mind + ']'
-                        : '[' + partial.join(',') + ']';
+                v = partial.length === 0 ? '[]' :
+                    gap ? '[\n' + gap +
+                            partial.join(',\n' + gap) + '\n' +
+                                mind + ']' :
+                          '[' + partial.join(',') + ']';
                 gap = mind;
                 return v;
             }
@@ -330,15 +427,11 @@ if (typeof JSON !== 'object') {
             if (rep && typeof rep === 'object') {
                 length = rep.length;
                 for (i = 0; i < length; i += 1) {
-                    if (typeof rep[i] === 'string') {
-                        k = rep[i];
+                    k = rep[i];
+                    if (typeof k === 'string') {
                         v = str(k, value);
                         if (v) {
-                            partial.push(quote(k) + (
-                                gap 
-                                    ? ': ' 
-                                    : ':'
-                            ) + v);
+                            partial.push(quote(k) + (gap ? ': ' : ':') + v);
                         }
                     }
                 }
@@ -347,14 +440,10 @@ if (typeof JSON !== 'object') {
 // Otherwise, iterate through all of the keys in the object.
 
                 for (k in value) {
-                    if (Object.prototype.hasOwnProperty.call(value, k)) {
+                    if (Object.hasOwnProperty.call(value, k)) {
                         v = str(k, value);
                         if (v) {
-                            partial.push(quote(k) + (
-                                gap 
-                                    ? ': ' 
-                                    : ':'
-                            ) + v);
+                            partial.push(quote(k) + (gap ? ': ' : ':') + v);
                         }
                     }
                 }
@@ -363,11 +452,9 @@ if (typeof JSON !== 'object') {
 // Join all of the member texts together, separated with commas,
 // and wrap them in braces.
 
-            v = partial.length === 0
-                ? '{}'
-                : gap
-                    ? '{\n' + gap + partial.join(',\n' + gap) + '\n' + mind + '}'
-                    : '{' + partial.join(',') + '}';
+            v = partial.length === 0 ? '{}' :
+                gap ? '{\n' + gap + partial.join(',\n' + gap) + '\n' +
+                        mind + '}' : '{' + partial.join(',') + '}';
             gap = mind;
             return v;
         }
@@ -376,15 +463,6 @@ if (typeof JSON !== 'object') {
 // If the JSON object does not yet have a stringify method, give it one.
 
     if (typeof JSON.stringify !== 'function') {
-        meta = {    // table of character substitutions
-            '\b': '\\b',
-            '\t': '\\t',
-            '\n': '\\n',
-            '\f': '\\f',
-            '\r': '\\r',
-            '"': '\\"',
-            '\\': '\\\\'
-        };
         JSON.stringify = function (value, replacer, space) {
 
 // The stringify method takes a value and an optional replacer, and an optional
@@ -417,7 +495,7 @@ if (typeof JSON !== 'object') {
             rep = replacer;
             if (replacer && typeof replacer !== 'function' &&
                     (typeof replacer !== 'object' ||
-                    typeof replacer.length !== 'number')) {
+                     typeof replacer.length !== 'number')) {
                 throw new Error('JSON.stringify');
             }
 
@@ -447,7 +525,7 @@ if (typeof JSON !== 'object') {
                 var k, v, value = holder[key];
                 if (value && typeof value === 'object') {
                     for (k in value) {
-                        if (Object.prototype.hasOwnProperty.call(value, k)) {
+                        if (Object.hasOwnProperty.call(value, k)) {
                             v = walk(value, k);
                             if (v !== undefined) {
                                 value[k] = v;
@@ -465,12 +543,11 @@ if (typeof JSON !== 'object') {
 // Unicode characters with escape sequences. JavaScript handles many characters
 // incorrectly, either silently deleting them, or treating them as line endings.
 
-            text = String(text);
-            rx_dangerous.lastIndex = 0;
-            if (rx_dangerous.test(text)) {
-                text = text.replace(rx_dangerous, function (a) {
+            cx.lastIndex = 0;
+            if (cx.test(text)) {
+                text = text.replace(cx, function (a) {
                     return '\\u' +
-                            ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
+                        ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
                 });
             }
 
@@ -487,14 +564,10 @@ if (typeof JSON !== 'object') {
 // we look to see that the remaining characters are only whitespace or ']' or
 // ',' or ':' or '{' or '}'. If that is so, then the text is safe for eval.
 
-            if (
-                rx_one.test(
-                    text
-                        .replace(rx_two, '@')
-                        .replace(rx_three, ']')
-                        .replace(rx_four, '')
-                )
-            ) {
+            if (/^[\],:{}\s]*$/.
+test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@').
+replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
 // In the third stage we use the eval function to compile the text into a
 // JavaScript structure. The '{' operator is subject to a syntactic ambiguity
@@ -506,9 +579,8 @@ if (typeof JSON !== 'object') {
 // In the optional fourth stage, we recursively walk the new structure, passing
 // each name/value pair to a reviver function for possible transformation.
 
-                return typeof reviver === 'function'
-                    ? walk({'': j}, '')
-                    : j;
+                return typeof reviver === 'function' ?
+                    walk({'': j}, '') : j;
             }
 
 // If the text is not JSON parseable, then a SyntaxError is thrown.
@@ -517,3 +589,44 @@ if (typeof JSON !== 'object') {
         };
     }
 }());
+;
+/*
+ * debug - v0.3 - 6/8/2009
+ * http://benalman.com/projects/javascript-debug-console-log/
+ *
+ * Copyright (c) 2009 "Cowboy" Ben Alman
+ * Licensed under the MIT license
+ * http://benalman.com/about/license/
+ *
+ * With lots of help from Paul Irish!
+ * http://paulirish.com/
+ */
+window.debug=(function(){var c=this,e=Array.prototype.slice,b=c.console,i={},f,g,j=9,d=["error","warn","info","debug","log"],m="assert clear count dir dirxml group groupEnd profile profileEnd time timeEnd trace".split(" "),k=m.length,a=[];while(--k>=0){(function(n){i[n]=function(){j!==0&&b&&b[n]&&b[n].apply(b,arguments)}})(m[k])}k=d.length;while(--k>=0){(function(n,o){i[o]=function(){var q=e.call(arguments),p=[o].concat(q);a.push(p);h(p);if(!b||!l(n)){return}b.firebug?b[o].apply(c,q):b[o]?b[o](q):b.log(q)}})(k,d[k])}function h(n){if(f&&(g||!b||!b.log)){f.apply(c,n)}}i.setLevel=function(n){j=typeof n==="number"?n:9};function l(n){return j>0?j>n:d.length+j<=n}i.setCallback=function(){var o=e.call(arguments),n=a.length,p=n;f=o.shift()||null;g=typeof o[0]==="boolean"?o.shift():false;p-=typeof o[0]==="number"?o.shift():n;while(p<n){h(a[p++])}};return i})();;
+/**
+ * This is part of a patch to address a jQueryUI bug.  The bug is responsible
+ * for the inability to scroll a page when a modal dialog is active. If the content
+ * of the dialog extends beyond the bottom of the viewport, the user is only able
+ * to scroll with a mousewheel or up/down keyboard keys.
+ *
+ * @see http://bugs.jqueryui.com/ticket/4671
+ * @see https://bugs.webkit.org/show_bug.cgi?id=19033
+ * @see views_ui.module
+ * @see js/jquery.ui.dialog.min.js
+ *
+ * This javascript patch overwrites the $.ui.dialog.overlay.events object to remove
+ * the mousedown, mouseup and click events from the list of events that are bound
+ * in $.ui.dialog.overlay.create
+ *
+ * The original code for this object:
+ * $.ui.dialog.overlay.events: $.map('focus,mousedown,mouseup,keydown,keypress,click'.split(','),
+ *  function(event) { return event + '.dialog-overlay'; }).join(' '),
+ *
+ */
+
+(function ($, undefined) {
+  if ($.ui && $.ui.dialog) {
+    $.ui.dialog.overlay.events = $.map('focus,keydown,keypress'.split(','),
+                                 function(event) { return event + '.dialog-overlay'; }).join(' ');
+  }
+}(jQuery));
+;

@@ -349,4 +349,10 @@ settings[alpha_region_footer_second_columns] = '12'
 settings[alpha_region_footer_second_suffix] = ''
 settings[alpha_region_footer_second_weight] = '2'
 settings[alpha_region_footer_second_css] = ''
+breakpoints[wide]   = (min-width: 1220px)
+breakpoints[normal] = (min-width: 980px)
+breakpoints[narrow] = (min-width: 740px)
+breakpoints[mobile] = (min-width: 0px)
+
+
 version = '1.x'
