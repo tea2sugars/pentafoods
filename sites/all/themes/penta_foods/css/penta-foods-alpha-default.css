@@ -115,3 +115,7 @@ p#contact-email, p#contact-phone {font-size:16px; margin:0 0 2px 0; text-align:l
 .view-product .item-list ul li div span {height:111px; width:182px;}
 .view-product .item-list ul li div span a.product_link  {position:relative; z-index:10; width:178px; height:107px; display:block; padding:2px; color:#000; text-decoration:none; font-size:11px; display:block; font-weight:800;}
 
+div#block-bean-homepage-rectangle, div#block-bean-homepage-rectangle-2, div#block-bean-homepage-square {
+	display:none;
+	}
+

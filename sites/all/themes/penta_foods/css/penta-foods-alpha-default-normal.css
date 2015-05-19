@@ -39,3 +39,10 @@ ul.nice-menu a:link, ul.nice-menu a:visited, ul.nice-menu .menuparent a:link, ul
 .view-product .item-list ul li div span {height:90px; width:150px;}
 .view-product .item-list ul li div span a.product_link {width:150px; font-size:10px; bottom:15px;}
 
+div#block-bean-homepage-rectangle, div#block-bean-homepage-rectangle-2, div#block-bean-homepage-square {
+	display:inherit;
+  border: 3px solid white;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+

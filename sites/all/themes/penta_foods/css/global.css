@@ -241,6 +241,10 @@ table {background: none !important; border:none !important;}
    height: 0;
    clear: both;
    }
+   
+div#block-bean-homepage-rectangle, div#block-bean-homepage-rectangle-2, div#block-bean-homepage-square {
+	display:none;
+	}
 
 
 

@@ -14,8 +14,8 @@ h2, h2.block-title {margin:0; font-size:14px;}
 h6.site-slogan  {font-style:italic; font-size:14px; color:#0078c1;}
 
 .site-name-slogan {float:left; width:200px; text-align:left; margin:0 0 0 10px;}
-
-#block-block-1, #block-block-2, #block-block-4, #block-views-brands-block-2, #block-block-8, #block-block-9 {width:274px; border:2px solid #fff; height:160px; }
+#block-block-8 {width:274px; border:2px solid #fff; height:140px;}
+#block-block-1, #block-block-2, #block-block-4, #block-views-brands-block-2, #block-block-9 {width:274px; border:2px solid #fff; height:160px; }
 #block-block-3, #block-block-5 {width:130px; border:2px solid #fff; height:140px; }
 #block-block-6 {width:274px; border:2px solid #fff; height:140px;}
 
@@ -37,4 +37,10 @@ ul.nice-menu li.first {margin-left:0;}
 
 ul.nice-menu a:link, ul.nice-menu a:visited, ul.nice-menu .menuparent a:link, ul.nice-menu .menuparent a:visited, ul.nice-menu-down li.menu-path-nolink {padding:12px 10px;}
 
+div#block-bean-homepage-rectangle, div#block-bean-homepage-rectangle-2, div#block-bean-homepage-square {
+	display:inherit;
+	border: 2px solid white;
+	padding: 0px !important;
+	margin: 0px !important;
+}
 
