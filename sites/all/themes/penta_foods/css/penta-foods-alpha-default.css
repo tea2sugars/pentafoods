@@ -107,7 +107,7 @@ p#contact-email, p#contact-phone {font-size:16px; margin:0 0 2px 0; text-align:l
 
 .page-node-102 #section-content, .page-node-done #section-content {background:url(../images/1008_lion_watermark.png) 80% 10px no-repeat;}
 
-#region-sidebar-second img {width:100%; float:left;}
+#region-sidebar-second img {width:100%; height:auto; float:left;}
 
 
 .view-product .item-list ul li  {display:block; height:111px; width:182px; float:left; border:1px solid #EAEAEA; background:#FFF; margin:3px;}
