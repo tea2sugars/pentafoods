@@ -245,7 +245,9 @@ table {background: none !important; border:none !important;}
 div#block-bean-homepage-rectangle, div#block-bean-homepage-rectangle-2, div#block-bean-homepage-square {
 	display:none;
 	}
-
+	
+div#block-block-26 {background: black; padding:10px 5px; text-align: center; height:200px;}
+div#block-block-26 iframe {width: 320px; height:180px;}
 
 
 

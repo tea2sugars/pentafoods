@@ -5,6 +5,9 @@
 div#block-bean-homepage-rectangle, div#block-bean-homepage-rectangle-2, div#block-bean-homepage-square {
 	display:inherit;
 	}
+	
+div#block-block-26 {width:374px; border:3px solid #fff; height:160px;}
+div#block-block-26 iframe {width: 266px; height:150px;}
 
 
 
