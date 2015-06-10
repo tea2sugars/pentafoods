@@ -3,7 +3,7 @@
  *  apply to the widescreen layout unless they are overridden by the widescreen styles. */
 
 #block-block-1, #block-block-2, #block-block-4, #block-block-6, #block-block-8, #block-block-9 {width:294px; border:3px solid #fff; height:144px; }
-#block-block-3, #block-block-5, #block-views-brands-block-2 {width:144px; border:3px solid #fff; height:144px; }
+#block-block-3, #block-block-5, #block-views-brands-block-2 {width:140px; border:3px solid #fff; height:144px; }
 
 #block-block-14 {height:185px; display:inherit; height:150px;}
 
@@ -45,6 +45,12 @@ div#block-bean-homepage-rectangle, div#block-bean-homepage-rectangle-2, div#bloc
   padding: 0px !important;
   margin: 0px !important;
 }
-div#block-block-26 {width:294px; border:3px solid #fff; height:144px;}
+
+.square_image_block {
+	width:140px !important;
+	
+}
+
+div#block-block-26 {width:294px; border:3px solid #fff; height:144px; padding-top:5px !important; }
 div#block-block-26 iframe {width: 248px; height:140px;}
 
